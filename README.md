@@ -1,0 +1,2 @@
+# testPowerShell
+tests for powershell
