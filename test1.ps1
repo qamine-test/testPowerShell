@@ -44,16 +44,16 @@ function getTitle {
 $null = New-Item -Type Directory /docs -Force ;
 $patterns = Get-ScriptAnalyzerRule | Where-Object { $_.RuleName -ne 'PSUseDeclaredVarsMoreThanAssignments' } ;
 $patternsLength = $patterns.Length ;
-$codacyPatterns = @() ;
-$codacyDescriptions = @();
+$codacyPatterns = @() ;  
+$codacyDescriptions = @();   
 New-Item -Type Directory /docs/description -Force | Out-Null ;
 foreach($pat in $patterns) {
     $patternId = $pat.RuleName.ToLower() ;
-    $patternNameLowerCased = $patternId.SubString(2) ;
+    $patternNameLowerCased = $patternId.SubString(2) ;  
     # could not use pat.RuleName for filename because of a mismatch in the uppercase 'W' in AvoidUsingUserNameAndPassWordParams
     $patternNameCamelCased = (ls /PSScriptAnalyzer/RuleDocumentation | grep -io $patternNameLowerCased).split("\n")[0] ;
-    $originalPatternFileName = $patternNameCamelCased + '.md' ;
-    $patternFileName = $patternId + '.md' ;
+    $originalPatternFileName = $patternNameCamelCased + '.md' ;  
+    $patternFileName = $patternId + '.md' ;   
     cp /PSScriptAnalyzer/RuleDocumentation/$originalPatternFileName /docs/description/$patternFileName ;
     $title = getTitle $patternNameCamelCased ;
     if($title -eq $patternNameCamelCased) { Write-Output "$patternNameCamelCased"; $count = $count+1;}
